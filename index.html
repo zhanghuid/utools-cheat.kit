@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>cheat.sh</title>
+	<link rel="stylesheet" type="text/css" href="assets/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/source-code-pro.css">
+	<script src="assets/jquery.min.js"></script>
+	
+</head>
+
+<body>
+	<div id="app"></div>
+	<script>
+		let app = document.querySelector('#app');
+		let input = '';
+
+		function useHtml(input) {
+			app.innerHTML = `
+			<div class="box">
+    <div class="loading">
+        <img src='assets/audio.svg' />
+    </div>
+</div>
+			`
+			window.getHtml(input).then((data) => {
+				app.innerHTML = data;
+			});
+		}
+
+		utools.onPluginEnter(({ code, type, payload }) => {
+			console.log(code, type, payload)
+			utools.setSubInput(({
+				text
+			}) => {
+				input = text;
+				if (text[text.length - 1] == ' ') {
+					text = text.replace(/(\s*$)/g, "");
+					console.log(text)
+					utools.setSubInputValue(text)
+					useHtml(text);
+				}
+
+			}, "eg: command or language/command");
+		});
+
+		$(document).keydown(e => {
+			switch (e.keyCode) {
+				case 13:
+					useHtml(input);
+					break;
+				case 32:
+					useHtml(input);
+					break;
+			}
+		});
+
+	</script>
+</body>
+
+</html>

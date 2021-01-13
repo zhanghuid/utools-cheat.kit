@@ -1,0 +1,18 @@
+{
+	"pluginName": "cheat",
+	"author": "huid",
+	"description": "the only cheat sheet you need",
+	"main": "index.html",
+	"version": "0.0.1",
+	"logo": "logo.png",
+	"preload": "preload.js",
+	"features": [
+		{
+			"code": "cheat",
+			"explain": "the only cheat sheet you need",
+			"cmds": [
+				"cheat"
+			]
+		}
+	]
+}

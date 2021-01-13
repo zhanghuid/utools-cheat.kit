@@ -1,0 +1,1 @@
+## 灵感来自 https://cheat.sh/
