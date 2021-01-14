@@ -8,16 +8,18 @@
 	<link rel="stylesheet" type="text/css" href="assets/style.css">
 	<link rel="stylesheet" type="text/css" href="assets/source-code-pro.css">
 	<script src="assets/jquery.min.js"></script>
-	
+
 </head>
 
 <body>
 	<div id="app"></div>
 	<script>
-		let app = document.querySelector('#app');
-		let input = '';
+		let app = document.querySelector('#app')
+		let input = ''
+		let startTime = new Date().getTime()
 
 		function useHtml(input) {
+			let startTime = new Date().getTime()
 			app.innerHTML = `
 			<div class="box">
     <div class="loading">
@@ -25,9 +27,29 @@
     </div>
 </div>
 			`
-			window.getHtml(input).then((data) => {
-				app.innerHTML = data;
-			});
+			$.get(`http://cheat.sh/${input}`, function (data) {
+				let endTime = new Date().getTime()
+				console.log('spend time: ' + (endTime - startTime) / 1000)
+				app.innerHTML = wrapHtml(data)
+			})
+		}
+
+		wrapHtml = function (html) {
+
+			let regexs = [
+				/<a [^>]+>.+<\/a>/gm,
+				/<script\b[^>]*>[\s\S]*<\/script>/gm,
+				/(<link.*\s+href=(?:"[^"]*"|'[^']*')[^<]*>)/gm,
+				/<form [\s\S]*<\/form>/gm
+			]
+
+			regexs.forEach(element => {
+				html = html.replace(element, function (a) {
+					return ''
+				})
+			})
+
+			return html
 		}
 
 		utools.onPluginEnter(({ code, type, payload }) => {
@@ -35,27 +57,28 @@
 			utools.setSubInput(({
 				text
 			}) => {
-				input = text;
+				input = text
+
 				if (text[text.length - 1] == ' ') {
-					text = text.replace(/(\s*$)/g, "");
+					text = text.replace(/(\s*$)/g, "")
 					console.log(text)
 					utools.setSubInputValue(text)
-					useHtml(text);
+					useHtml(text)
 				}
 
-			}, "eg: command or language/command");
-		});
+			}, "eg: command or language/command")
+		})
 
 		$(document).keydown(e => {
 			switch (e.keyCode) {
 				case 13:
-					useHtml(input);
-					break;
+					useHtml(input)
+					break
 				case 32:
-					useHtml(input);
-					break;
+					useHtml(input)
+					break
 			}
-		});
+		})
 
 	</script>
 </body>
