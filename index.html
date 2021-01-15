@@ -6,7 +6,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>cheat.sh</title>
 	<link rel="stylesheet" type="text/css" href="assets/style.css">
-	<link rel="stylesheet" type="text/css" href="assets/source-code-pro.css">
 	<script src="assets/jquery.min.js"></script>
 
 </head>
@@ -29,7 +28,7 @@
 			`
 			$.get(`http://cheat.sh/${input}`, function (data) {
 				let endTime = new Date().getTime()
-				console.log('spend time: ' + (endTime - startTime) / 1000)
+				console.log(`${input} spend time: ` + (endTime - startTime) / 1000)
 				app.innerHTML = wrapHtml(data)
 			})
 		}
