@@ -58,12 +58,12 @@
 			}) => {
 				input = text
 
-				if (text[text.length - 1] == ' ') {
-					text = text.replace(/(\s*$)/g, "")
-					console.log(text)
-					utools.setSubInputValue(text)
-					useHtml(text)
-				}
+				// if (text[text.length - 1] == ' ') {
+				// 	text = text.replace(/(\s*$)/g, "")
+				// 	console.log(text)
+				// 	utools.setSubInputValue(text)
+				// 	useHtml(text)
+				// }
 
 			}, "eg: command or language/command")
 		})
@@ -73,9 +73,9 @@
 				case 13:
 					useHtml(input)
 					break
-				case 32:
-					useHtml(input)
-					break
+				// case 32:
+				// 	useHtml(input)
+				// 	break
 			}
 		})
 
